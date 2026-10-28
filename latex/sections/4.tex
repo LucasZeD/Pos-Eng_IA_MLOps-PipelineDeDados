@@ -20,15 +20,21 @@ A aula descreve a transformação não linear como uma operação cujo resultado
 
 A Tabela~\ref{tab:q4-poly} mostra as colunas originais e as seis features novas. NM é a nota de Matemática, NP a de Português e Sat. a satisfação do curso. As duas primeiras linhas e a última repetem o mesmo perfil de notas e, por isso, as mesmas features. O arquivo \path{scripts/results/q4_polynomial.csv} guarda a matriz.
 
-\begin{table*}[t]
+\begin{table}[H]
     \centering
     \caption{Features polinomiais de grau 2 para notas e satisfação.}
     \label{tab:q4-poly}
     \footnotesize
-    \setlength{\tabcolsep}{5pt}
+    \setlength{\tabcolsep}{2pt}
     \begin{tabular}{@{}ccccccccc@{}}
         \toprule
-        NM & NP & Sat. & NM\(^2\) & NM\(\times\)NP & NM\(\times\)Sat. & NP\(^2\) & NP\(\times\)Sat. & Sat.\(^2\) \\
+        NM & NP & Sat. &
+        NM\(^2\) &
+        \shortstack{NM\(\times\)\\NP} &
+        \shortstack{NM\(\times\)\\Sat.} &
+        NP\(^2\) &
+        \shortstack{NP\(\times\)\\Sat.} &
+        Sat.\(^2\) \\
         \midrule
         8 & 7 & 4 & 64 & 56 & 32 & 49 & 28 & 16 \\
         7 & 6 & 3 & 49 & 42 & 21 & 36 & 18 &  9 \\
@@ -37,4 +43,4 @@ A Tabela~\ref{tab:q4-poly} mostra as colunas originais e as seis features novas.
         8 & 7 & 4 & 64 & 56 & 32 & 49 & 28 & 16 \\
         \bottomrule
     \end{tabular}
-\end{table*}
+\end{table}

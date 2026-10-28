@@ -15,12 +15,12 @@ Considere o conjunto de dados \texttt{transacoes\_bancarias.csv}, disponibilizad
 
 Nas 1.000 transações, o qui-quadrado é 12,13, com 19 graus de liberdade e \(p = 0{,}880\). O V de Cramér é 0,110. A associação é fraca. A maior correlação absoluta é 0,045 (cafeteira, mais frequente entre mulheres) e todos os \(p\) por produto ficam acima de 0,16. A Tabela~\ref{tab:q6-sexo} lista os vinte produtos. O arquivo \path{scripts/results/q6_sexo_produto.csv} guarda a tabela.
 
-\begin{table*}[t]
+\begin{table}[H]
     \centering
     \caption{Associação entre sexo e tipo de produto. Correlação com o indicador Feminino = 1.}
     \label{tab:q6-sexo}
-    \footnotesize
-    \setlength{\tabcolsep}{8pt}
+    \scriptsize
+    \setlength{\tabcolsep}{3pt}
     \begin{tabular}{@{}lrrrr@{}}
         \toprule
         Produto & Feminino & Masculino & \(r\) & \(p\) \\
@@ -47,8 +47,9 @@ Nas 1.000 transações, o qui-quadrado é 12,13, com 19 graus de liberdade e \(p
         Máquina de café        & 29 & 30 & $-0{,}004$ & 0,896 \\
         \bottomrule
     \end{tabular}
-\end{table*}
+\end{table}
 
+\balance
 \subsection{Dia da semana}
 
 A aula extrai o dia da semana de uma coluna de data e agrega contagens por grupo. \texttt{Data} é convertida para datetime e cada compra recebe o dia, de domingo a sábado. A contagem por dia indica onde as compras se concentram.
@@ -108,12 +109,12 @@ Os 27 estados fecham o intervalo: o normalizado mínimo é 0 e o máximo é 1 em
     \end{tabular}
 \end{table}
 
-\begin{table*}[t]
+\begin{table}[H]
     \centering
     \caption{Faixa de valor por estado antes da escala 0 a 1. Em todos, o normalizado vai de 0 a 1.}
     \label{tab:q6-estados}
-    \footnotesize
-    \setlength{\tabcolsep}{6pt}
+    \scriptsize
+    \setlength{\tabcolsep}{3pt}
     \begin{tabular}{@{}llrrr@{}}
         \toprule
         UF & Estado & \(n\) & Mínimo & Máximo \\
@@ -147,4 +148,4 @@ Os 27 estados fecham o intervalo: o normalizado mínimo é 0 e o máximo é 1 em
         TO & Tocantins             & 43 &  474,47 & 9849,86 \\
         \bottomrule
     \end{tabular}
-\end{table*}
+\end{table}
