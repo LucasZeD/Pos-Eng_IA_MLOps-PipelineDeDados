@@ -1,0 +1,52 @@
+\section{Questão 3}
+
+\subsection{Enunciado}
+
+Considere o seguinte conjunto de dados:
+\begin{verbatim}
+data = {
+    'Matemática': [85, 92, 78, 96, 88],
+    'Português': [7, 5, 8, 9, 6]
+}
+\end{verbatim}
+É conhecido que as notas de Matemática variam de 0 a 100, enquanto as notas de Português variam de 0 a 10. Aplique a normalização Min-Max e a padronização Z-Score para as notas em ambas as disciplinas, de modo que elas estejam na mesma escala e distribuição.
+
+\subsection{Solução}
+
+As notas de Matemática pertencem à faixa de 0 a 100 e as de Português à faixa de 0 a 10. Os valores brutos, por isso, não compartilham escala. A normalização Min-Max da aula reescala cada coluna para o intervalo \([0, 1]\):
+\[
+z_{\mathrm{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}.
+\]
+\(x_{\min}\) e \(x_{\max}\) são o mínimo e o máximo observados na própria coluna, como no exemplo numérico da aula. A padronização Z-score coloca cada coluna com média zero e desvio padrão unitário:
+\[
+z = \frac{x - \mu}{\sigma}.
+\]
+O script ajusta \texttt{MinMaxScaler} e \texttt{StandardScaler}. O desvio é o populacional, o mesmo do exemplo da aula. Em Matemática, o mínimo é 78, o máximo é 96, a média é 87,8 e o desvio é 6,145. Em Português, o mínimo é 5, o máximo é 9, a média é 7 e o desvio é 1,414.
+
+\subsection{Resultado}
+
+Depois das duas transformações, as disciplinas passam a ocupar o intervalo \([0, 1]\) e, na padronização, a mesma distribuição (média 0 e desvio 1). A Tabela~\ref{tab:q3-escalas} reúne os valores. O arquivo \path{scripts/results/q3_escalas.csv} guarda a tabela.
+
+\begin{table}[H]
+    \centering
+    \caption{Notas originais, normalização Min-Max e padronização Z-score.}
+    \label{tab:q3-escalas}
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{@{}rrrrrr@{}}
+        \toprule
+        \shortstack{Mat.\\orig.} &
+        \shortstack{Port.\\orig.} &
+        \shortstack{Mat.\\Min-Max} &
+        \shortstack{Port.\\Min-Max} &
+        \shortstack{Mat.\\Z} &
+        \shortstack{Port.\\Z} \\
+        \midrule
+        85 & 7 & 0,389 & 0,500 & $-0{,}456$ & $0{,}000$ \\
+        92 & 5 & 0,778 & 0,000 & $0{,}683$ & $-1{,}414$ \\
+        78 & 8 & 0,000 & 0,750 & $-1{,}595$ & $0{,}707$ \\
+        96 & 9 & 1,000 & 1,000 & $1{,}334$ & $1{,}414$ \\
+        88 & 6 & 0,556 & 0,250 & $0{,}033$ & $-0{,}707$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}

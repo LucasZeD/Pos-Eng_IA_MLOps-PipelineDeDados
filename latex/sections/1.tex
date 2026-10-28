@@ -1,0 +1,52 @@
+\section{Questão 1}
+
+\subsection{Enunciado}
+
+Um e-commerce possui várias categorias de produtos descritas no conjunto de dados a seguir:
+\begin{verbatim}
+{
+    'Produto': [
+        'Eletrônicos',
+        'Roupas',
+        'Eletrodomésticos',
+        'Eletrônicos',
+        'Livros',
+        'Roupas',
+        'Livros'
+    ]
+}
+\end{verbatim}
+Aplique a codificação one-hot para representar as categorias de produtos em formato numérico.
+
+\subsection{Solução}
+
+A coluna \texttt{Produto} tem quatro categorias sem ordem: Eletrodomésticos, Eletrônicos, Livros e Roupas. O script monta o \texttt{DataFrame} das sete observações e aplica \texttt{pandas.get\_dummies} com \texttt{dtype=int}. Cada categoria vira uma coluna binária (\texttt{Produto\_<categoria>}): 1 na categoria da linha e 0 nas demais. Cada linha fica com um único 1.
+
+\subsection{Resultado}
+
+A Tabela~\ref{tab:q1-onehot} mostra a matriz. A coluna \texttt{Produto} fica ao lado dos indicadores. Os cabeçalhos omitem o prefixo \texttt{Produto\_}. O arquivo \texttt{scripts/results/q1.csv} guarda as quatro colunas binárias.
+
+\begin{table}[H]
+    \centering
+    \caption{Codificação one-hot das categorias de produto.}
+    \label{tab:q1-onehot}
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Produto &
+        \shortstack{Eletro-\\domésticos} &
+        \shortstack{Eletrô-\\nicos} &
+        Livros &
+        Roupas \\
+        \midrule
+        Eletrônicos      & 0 & 1 & 0 & 0 \\
+        Roupas           & 0 & 0 & 0 & 1 \\
+        Eletrodomésticos & 1 & 0 & 0 & 0 \\
+        Eletrônicos      & 0 & 1 & 0 & 0 \\
+        Livros           & 0 & 0 & 1 & 0 \\
+        Roupas           & 0 & 0 & 0 & 1 \\
+        Livros           & 0 & 0 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}

@@ -1,0 +1,57 @@
+\documentclass[sigconf]{webmedia}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+\settopmatter{printacmref=false, printfolios=false}
+\setevent{webmedia}
+\proceedingsDetails[PUC MG]{Otimização de Sistemas}{2026}{Belo Horizonte/MG, Brazil} 
+% \ISSN{2966-2753}
+
+%\setevent{ctd}
+%\proceedingsDetails[CTD’2026]{VIII Concurso de Teses e Disserta{\c c}{\~o}es. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{ctic}
+%\proceedingsDetails[CTIC’2026]{VI Concurso de Trabalhos de Inicia{\c c}{\~a}o Cient{\'i}fica. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{wfa}
+%\proceedingsDetails[WFA’2026]{XXV Workshop de Ferramentas e Aplica{\c c}{\~o}es. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{w4e}
+%\proceedingsDetails[W4E’2026]{V WebMedia for Everyone. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{wrsl}
+%\proceedingsDetails[WRSL+’2026]{II Workshop de Revisões Sistemáticas de Literatura em Sistemas Multimídia e Web. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{BrWeb3}
+%\proceedingsDetails[BrWeb3’2026]{II Workshop Brasileiro de Sistemas Web3. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil} 
+%\ISSN{2596-1683}
+
+%\setevent{wtvdi}
+%\proceedingsDetails[WTVDI’2026]{IX Workshop Futuro da TV Digital Interativa. Anais Estendidos do XXXII Simpósio Brasileiro de Sistemas Multimídia e Web}{2026}{Lavras/MG, Brasil}
+%\ISSN{2596-1683}
+
+%% end of the preamble, the start of the body of the document source.
+
+% extra
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage[brazil]{babel}
+\usepackage[brazilian]{babel}
+% newtxmath (carregado por webmedia.cls) já define \Bbbk; amssymb
+% tenta defini-lo de novo e aborta a compilação.
+\let\Bbbk\relax
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{float}

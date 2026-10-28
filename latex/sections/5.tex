@@ -1,0 +1,39 @@
+\section{Questão 5}
+
+\subsection{Enunciado}
+
+Considere o seguinte conjunto de dados:
+\begin{verbatim}
+data = {
+    'Idade': [28, 35, 45, 22, 31],
+    'Produtos_Comprados': [5, 9, 7, 3, 6]
+}
+\end{verbatim}
+Aplique uma técnica de transformação linear para criar novas features que correlacionem a Idade com Produtos\_Comprados.
+
+\subsection{Solução}
+
+A aula lista a criação de features de interação entre as transformações lineares. A operação é o produto de duas colunas, no mesmo formato de \texttt{valor\_total = preço \(\times\) quantidade}, e serve para correlacionar dois atributos numa coluna só. A feature nova é \texttt{Idade\_x\_Produtos} = Idade \(\times\) Produtos comprados. A correlação de Pearson entre as colunas originais resume a associação linear que esse produto carrega.
+
+\subsection{Resultado}
+
+A correlação de Pearson entre idade e produtos comprados é 0,729: na amostra, idade maior acompanha mais compras. A Tabela~\ref{tab:q5-interacao} traz o produto em cada linha. O arquivo \path{scripts/results/q5_interacao.csv} guarda a tabela.
+
+\begin{table}[H]
+    \centering
+    \caption{Feature de interação entre idade e produtos comprados.}
+    \label{tab:q5-interacao}
+    \footnotesize
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabular}{@{}rrr@{}}
+        \toprule
+        Idade & Produtos comprados & Idade \(\times\) produtos \\
+        \midrule
+        28 & 5 & 140 \\
+        35 & 9 & 315 \\
+        45 & 7 & 315 \\
+        22 & 3 &  66 \\
+        31 & 6 & 186 \\
+        \bottomrule
+    \end{tabular}
+\end{table}

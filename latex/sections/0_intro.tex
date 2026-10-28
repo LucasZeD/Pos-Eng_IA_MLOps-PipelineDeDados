@@ -1,0 +1,26 @@
+\section{Introdução}
+
+\textit{Feature Engineering} é o processo de criar, transformar, selecionar e representar variáveis a partir dos dados brutos, de modo que um modelo de aprendizado de máquina receba entradas numéricas, comparáveis e relevantes para o problema. Os dados originais reúnem categorias, escalas distintas e relações que não aparecem de forma direta nas colunas iniciais. As técnicas a seguir organizam essas transformações.
+
+\begin{itemize}
+    \item \textbf{One-Hot Encoding.} Representa uma variável categórica sem ordem natural por um conjunto de colunas binárias, uma para cada categoria. Cada observação recebe o valor 1 na coluna da categoria correspondente e 0 nas demais. Cada coluna identifica uma categoria, o que torna a representação interpretável e compatível com modelos que exigem entradas numéricas, e as categorias permanecem independentes. Com muitas categorias, surge uma coluna por valor distinto: a matriz fica esparsa, o uso de memória cresce e o treinamento de alguns modelos fica mais custoso. Categorias que aparecem só em produção, ausentes no treinamento, pedem tratamento explícito, como o oferecido pelo \texttt{OneHotEncoder} do scikit-learn.
+
+    \item \textbf{Ordinal Encoding.} Representa uma variável categórica ordenada por números inteiros que preservam essa hierarquia. A posição numérica de cada código corresponde à posição relativa da categoria.
+
+    \item \textbf{Normalização.} Reescala cada variável para um intervalo fixo, em geral de 0 a 1, pela transformação Min-Max. Variáveis medidas em unidades ou amplitudes diferentes passam a ocupar a mesma faixa de valores.
+
+    \item \textbf{Padronização.} Recentra cada variável na média zero e a reescala para desvio padrão unitário, pela transformação Z-score. Cada observação passa a ser descrita pelo número de desvios em relação à média da própria variável.
+
+    \item \textbf{Feature Selection.} Escolhe o subconjunto de variáveis mais associadas ao objetivo do modelo. A seleção reduz ruído, redundância e a quantidade de entradas apresentadas ao algoritmo. Os procedimentos se organizam em três categorias:
+    \begin{itemize}
+        \item \textbf{Filter Methods.} Avaliam cada variável por uma medida estatística calculada sobre os dados, antes de qualquer treinamento. Correlação, informação mútua, teste qui-quadrado e ANOVA são exemplos. O custo permanece baixo e o critério independe do algoritmo usado depois. Cada variável é julgada isoladamente, então interações entre elas ficam fora da seleção.
+
+        \item \textbf{Wrapper Methods.} Percorrem subconjuntos de variáveis e medem cada subconjunto pelo desempenho de um modelo treinado nele. Seleção \textit{forward}, eliminação \textit{backward} e eliminação recursiva de features (RFE) são exemplos. O subconjunto fica ligado ao modelo da busca e reflete combinações entre variáveis. O custo cresce com o número de subconjuntos avaliados.
+
+        \item \textbf{Embedded Methods.} Incorporam a seleção ao próprio treinamento. A regularização L1, como no Lasso, reduz a zero os coeficientes de variáveis pouco úteis, e modelos baseados em árvores atribuem importância às variáveis ao construir as divisões. O critério de seleção e o modelo ficam no mesmo ajuste, com custo próximo ao de um único treinamento.
+    \end{itemize}
+
+    \item \textbf{Polynomial Features.} Gera novas variáveis a partir de potências e produtos das variáveis originais. Essas combinações permitem que um modelo linear represente relações curvas e interações entre as entradas.
+\end{itemize}
+
+Este relatório aplica essas técnicas às questões da atividade. Cada questão reúne o enunciado, o procedimento adotado e o resultado obtido.

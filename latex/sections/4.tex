@@ -1,0 +1,40 @@
+\section{Questão 4}
+
+\subsection{Enunciado}
+
+Considere o seguinte conjunto de dados:
+\begin{verbatim}
+data = {
+    'Nota_Matemática': [8, 7, 9, 6, 8],
+    'Nota_Português': [7, 6, 8, 5, 7],
+    'Satisfação_Curso': [4, 3, 5, 2, 4]
+}
+\end{verbatim}
+Aplique uma técnica de transformação não linear para criar novas features que capturem as relações entre as notas e a satisfação do curso.
+
+\subsection{Solução}
+
+A aula descreve a transformação não linear como uma operação cujo resultado não é proporcional ao valor original e que torna visível uma relação que as colunas brutas não mostram. Polynomial Features de grau 2 cumpre esse papel: para cada observação, o script gera o quadrado de cada variável e o produto de cada par. Os produtos da nota de Matemática e da nota de Português com a satisfação do curso ligam o desempenho à satisfação. Os quadrados introduzem a curvatura de cada variável. O termo constante fica de fora (\texttt{include\_bias=False}).
+
+\subsection{Resultado}
+
+A Tabela~\ref{tab:q4-poly} mostra as colunas originais e as seis features novas. NM é a nota de Matemática, NP a de Português e Sat. a satisfação do curso. As duas primeiras linhas e a última repetem o mesmo perfil de notas e, por isso, as mesmas features. O arquivo \path{scripts/results/q4_polynomial.csv} guarda a matriz.
+
+\begin{table*}[t]
+    \centering
+    \caption{Features polinomiais de grau 2 para notas e satisfação.}
+    \label{tab:q4-poly}
+    \footnotesize
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabular}{@{}ccccccccc@{}}
+        \toprule
+        NM & NP & Sat. & NM\(^2\) & NM\(\times\)NP & NM\(\times\)Sat. & NP\(^2\) & NP\(\times\)Sat. & Sat.\(^2\) \\
+        \midrule
+        8 & 7 & 4 & 64 & 56 & 32 & 49 & 28 & 16 \\
+        7 & 6 & 3 & 49 & 42 & 21 & 36 & 18 &  9 \\
+        9 & 8 & 5 & 81 & 72 & 45 & 64 & 40 & 25 \\
+        6 & 5 & 2 & 36 & 30 & 12 & 25 & 10 &  4 \\
+        8 & 7 & 4 & 64 & 56 & 32 & 49 & 28 & 16 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}

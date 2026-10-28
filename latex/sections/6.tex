@@ -1,0 +1,150 @@
+\section{Questão 6}
+
+\subsection{Enunciado}
+
+Considere o conjunto de dados \texttt{transacoes\_bancarias.csv}, disponibilizado no Canvas:
+\begin{itemize}
+    \item Aplique uma técnica de Feature Engineering para descobrir correlações entre Sexo e tipo de produto comprado.
+    \item Aplique uma técnica de Feature Engineering para identificar qual dia da semana (domingo a sábado) ocorre mais compras.
+    \item Aplique uma técnica de Feature Engineering para dimensionar os valores dos produtos por estado numa escala de 0 a 1.
+\end{itemize}
+
+\subsection{Sexo e tipo de produto}
+
+\texttt{Sexo} e \texttt{Produto} são categóricos. O script codifica \texttt{Produto} com \texttt{get\_dummies}, como na Questão 1, e \texttt{Sexo} como indicador (Feminino = 1, Masculino = 0). A correlação de Pearson entre esse indicador e cada produto mede a associação. O teste qui-quadrado da tabela de contingência, um dos \textit{filter methods} da aula, avalia se as duas categorias são independentes. O V de Cramér, calculado a partir desse qui-quadrado, resume a intensidade entre 0 e 1.
+
+Nas 1.000 transações, o qui-quadrado é 12,13, com 19 graus de liberdade e \(p = 0{,}880\). O V de Cramér é 0,110. A associação é fraca. A maior correlação absoluta é 0,045 (cafeteira, mais frequente entre mulheres) e todos os \(p\) por produto ficam acima de 0,16. A Tabela~\ref{tab:q6-sexo} lista os vinte produtos. O arquivo \path{scripts/results/q6_sexo_produto.csv} guarda a tabela.
+
+\begin{table*}[t]
+    \centering
+    \caption{Associação entre sexo e tipo de produto. Correlação com o indicador Feminino = 1.}
+    \label{tab:q6-sexo}
+    \footnotesize
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabular}{@{}lrrrr@{}}
+        \toprule
+        Produto & Feminino & Masculino & \(r\) & \(p\) \\
+        \midrule
+        Cafeteira              & 31 & 21 & $0{,}045$  & 0,166 \\
+        Cadeira de escritório  & 32 & 22 & $0{,}044$  & 0,174 \\
+        Smartphone             & 21 & 30 & $-0{,}041$ & 0,208 \\
+        Notebook               & 27 & 20 & $0{,}033$  & 0,307 \\
+        Máquina de lavar       & 28 & 21 & $0{,}032$  & 0,317 \\
+        Fogão                  & 17 & 23 & $-0{,}031$ & 0,343 \\
+        Console                & 20 & 26 & $-0{,}029$ & 0,376 \\
+        Aspirador de pó        & 20 & 25 & $-0{,}024$ & 0,456 \\
+        Micro-ondas            & 22 & 27 & $-0{,}023$ & 0,475 \\
+        Liquidificador         & 20 & 24 & $-0{,}020$ & 0,546 \\
+        Tablet                 & 26 & 22 & $0{,}019$  & 0,564 \\
+        Geladeira              & 28 & 24 & $0{,}018$  & 0,579 \\
+        Laptop                 & 27 & 31 & $-0{,}017$ & 0,599 \\
+        Sofá                   & 26 & 23 & $0{,}014$  & 0,668 \\
+        Ventilador             & 28 & 25 & $0{,}013$  & 0,680 \\
+        Cama de casal          & 17 & 19 & $-0{,}011$ & 0,739 \\
+        Televisão              & 25 & 27 & $-0{,}009$ & 0,782 \\
+        Secador de cabelo      & 26 & 28 & $-0{,}009$ & 0,785 \\
+        Computador             & 30 & 32 & $-0{,}008$ & 0,799 \\
+        Máquina de café        & 29 & 30 & $-0{,}004$ & 0,896 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+\subsection{Dia da semana}
+
+A aula extrai o dia da semana de uma coluna de data e agrega contagens por grupo. \texttt{Data} é convertida para datetime e cada compra recebe o dia, de domingo a sábado. A contagem por dia indica onde as compras se concentram.
+
+Sábado reúne o maior volume: 163 compras, 16,3\% do total. Segunda-feira reúne o menor, 110. A Tabela~\ref{tab:q6-dias} traz a semana inteira. O arquivo \path{scripts/results/q6_dia_semana.csv} guarda a contagem.
+
+\begin{table}[H]
+    \centering
+    \caption{Compras por dia da semana.}
+    \label{tab:q6-dias}
+    \footnotesize
+    \setlength{\tabcolsep}{10pt}
+    \begin{tabular}{@{}lrr@{}}
+        \toprule
+        Dia & Compras & Proporção \\
+        \midrule
+        Domingo       & 131 & 13,1\% \\
+        Segunda-feira & 110 & 11,0\% \\
+        Terça-feira   & 147 & 14,7\% \\
+        Quarta-feira  & 157 & 15,7\% \\
+        Quinta-feira  & 144 & 14,4\% \\
+        Sexta-feira   & 148 & 14,8\% \\
+        Sábado        & 163 & 16,3\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Valor por estado}
+
+A escala de 0 a 1 é a normalização Min-Max da aula, aplicada dentro de cada estado. O campo \texttt{Estado} chega como o par (UF, nome) e é separado antes do agrupamento. Em cada UF, o menor \texttt{Valor} vai a 0 e o maior vai a 1:
+\[
+z_{\mathrm{UF}} = \frac{x - x_{\min,\mathrm{UF}}}{x_{\max,\mathrm{UF}} - x_{\min,\mathrm{UF}}}.
+\]
+
+Os 27 estados fecham o intervalo: o normalizado mínimo é 0 e o máximo é 1 em todos eles. A Tabela~\ref{tab:q6-amostra} mostra, para três estados, o extremo inferior, um valor intermediário e o extremo superior já na escala nova. A Tabela~\ref{tab:q6-estados} lista a faixa original de cada estado. Os arquivos \path{scripts/results/q6_valor_estado.csv} e \path{scripts/results/q6_valor_norm.csv} guardam o resumo e as 1.000 linhas transformadas.
+
+\begin{table}[H]
+    \centering
+    \caption{Amostra da escala 0 a 1 do valor, por estado.}
+    \label{tab:q6-amostra}
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{@{}llrr@{}}
+        \toprule
+        UF & Produto & Valor & Escala \\
+        \midrule
+        AC & Liquidificador &  418,24 & 0,000 \\
+        AC & Smartphone     & 5140,19 & 0,495 \\
+        AC & Sofá           & 9961,79 & 1,000 \\
+        MG & Sofá           & 1178,04 & 0,000 \\
+        MG & Notebook       & 5310,23 & 0,490 \\
+        MG & Console        & 9617,76 & 1,000 \\
+        SP & Computador     &  957,21 & 0,000 \\
+        SP & Laptop         & 6017,55 & 0,561 \\
+        SP & Ventilador     & 9980,54 & 1,000 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table*}[t]
+    \centering
+    \caption{Faixa de valor por estado antes da escala 0 a 1. Em todos, o normalizado vai de 0 a 1.}
+    \label{tab:q6-estados}
+    \footnotesize
+    \setlength{\tabcolsep}{6pt}
+    \begin{tabular}{@{}llrrr@{}}
+        \toprule
+        UF & Estado & \(n\) & Mínimo & Máximo \\
+        \midrule
+        AC & Acre                  & 40 &  418,24 & 9961,79 \\
+        AL & Alagoas               & 27 &  619,77 & 9231,89 \\
+        AM & Amazonas              & 42 &  286,91 & 9774,14 \\
+        AP & Amapá                 & 34 &  127,90 & 9220,49 \\
+        BA & Bahia                 & 37 &   57,47 & 9792,74 \\
+        CE & Ceará                 & 36 &  658,82 & 9593,56 \\
+        DF & Distrito Federal      & 44 &   74,63 & 9975,50 \\
+        ES & Espírito Santo        & 32 &   58,23 & 9562,80 \\
+        GO & Goiás                 & 39 &  339,72 & 9546,43 \\
+        MA & Maranhão              & 40 &  427,39 & 9857,82 \\
+        MG & Minas Gerais          & 39 & 1178,04 & 9617,76 \\
+        MS & Mato Grosso do Sul    & 40 &  367,38 & 9961,28 \\
+        MT & Mato Grosso           & 42 &   25,42 & 9872,53 \\
+        PA & Pará                  & 30 &  194,54 & 9970,01 \\
+        PB & Paraíba               & 39 &  193,99 & 9896,82 \\
+        PE & Pernambuco            & 23 &  328,53 & 9919,73 \\
+        PI & Piauí                 & 32 &  259,19 & 9680,84 \\
+        PR & Paraná                & 36 &  474,38 & 9992,45 \\
+        RJ & Rio de Janeiro        & 39 &  100,88 & 9874,21 \\
+        RN & Rio Grande do Norte   & 36 &  169,31 & 9753,79 \\
+        RO & Rondônia              & 49 &  258,74 & 9513,47 \\
+        RR & Roraima               & 33 &  301,81 & 9778,12 \\
+        RS & Rio Grande do Sul     & 39 &  261,08 & 9957,18 \\
+        SC & Santa Catarina        & 29 &  620,77 & 9875,35 \\
+        SE & Sergipe               & 41 &   71,92 & 9858,92 \\
+        SP & São Paulo             & 39 &  957,21 & 9980,54 \\
+        TO & Tocantins             & 43 &  474,47 & 9849,86 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
