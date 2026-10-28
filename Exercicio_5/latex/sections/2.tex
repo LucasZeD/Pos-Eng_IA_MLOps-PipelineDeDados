@@ -1,0 +1,45 @@
+\section{Questão 2}
+
+\subsection{Enunciado}
+
+Considere o seguinte conjunto de dados:
+\begin{verbatim}
+data = {
+    'Tamanho': [150, 120, 180, 130, 160],
+    'Quartos': [3, 2, 4, 3, 4],
+    'Preço': [200000, 180000, 250000, 190000, 220000],
+    'Localização': [
+        'Norte', 'Leste', 'Oeste', 'Sul', 'Centro'
+    ]
+}
+\end{verbatim}
+Aplique a técnica de seleção de features para selecionar as features mais relevantes para o negócio.
+
+\subsection{Solução}
+
+O alvo é \texttt{Preço}. As entradas são \texttt{Tamanho}, \texttt{Quartos} e \texttt{Localização}. \texttt{Localização} entra como one-hot. A seleção usa \texttt{SelectKBest} com \texttt{f\_regression} e \(k = 2\): a estatística \(F\) da regressão linear de cada feature com o preço. As duas de maior \(F\) são mantidas.
+
+\subsection{Resultado}
+
+Na amostra, \texttt{Tamanho} (\(F = 54{,}56\)) e \texttt{Quartos} (\(F = 10{,}62\)) apresentaram os maiores F-scores e foram selecionadas pelo \texttt{SelectKBest}. \texttt{Localização} foi codificada em indicadores one-hot e avaliada, mas não entrou entre as duas primeiras. A Tabela~\ref{tab:q2-rank} traz o ranking completo.
+
+\begin{table}[H]
+    \centering
+    \caption{Ranking das features pela estatística \(F\) em relação ao preço.}
+    \label{tab:q2-rank}
+    \footnotesize
+    \setlength{\tabcolsep}{6pt}
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        Feature & \(F\) & \(p\) & Selecionada \\
+        \midrule
+        Tamanho            & 54,56 & 0,005 & Sim \\
+        Quartos            & 10,62 & 0,047 & Sim \\
+        Localização\_Oeste &  7,56 & 0,071 & Não \\
+        Localização\_Leste &  1,40 & 0,322 & Não \\
+        Localização\_Sul   &  0,45 & 0,549 & Não \\
+        Localização\_Centro&  0,19 & 0,695 & Não \\
+        Localização\_Norte &  0,08 & 0,796 & Não \\
+        \bottomrule
+    \end{tabular}
+\end{table}
