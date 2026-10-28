@@ -17,3 +17,5 @@ scripts/results/*
 !scripts/results/.gitkeep
 
 help/*
+
+.venv/
